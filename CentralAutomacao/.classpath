@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
+	<classpathentry kind="src" output="work" path="work"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/commons-io-2.1.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/httpclient-4.2.1.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/httpcore-4.2.1.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jackson-core-asl-1.9.12.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/javassist-3.8.0.GA.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jaxrs-api-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jcip-annotations-1.0.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jettison-1.3.2.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jgroups-3.0.11.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jose-jwt-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/jsr250-api-1.0.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/mail-1.4.4.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/mysql-connector-java-5.1.30-bin.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/resteasy-jaxb-provider-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/resteasy-jaxrs-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/resteasy-jettison-provider-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/resteasy-multipart-provider-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="context-root/WEB-INF/lib/scannotation-1.0.3.jar"/>
+	<classpathentry kind="output" path="context-root/WEB-INF/classes"/>
+</classpath>

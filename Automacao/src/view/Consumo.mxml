@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx"
+		   xmlns:complementos="view.complementos.*"
+		   layout="absolute" width="100%" height="100%" 
+		   creationComplete="init()">
+	
+	<fx:Script source="../model/Consumo.as"/>
+	
+	<fx:Declarations>
+		
+		<s:HTTPService  id="hsListarConsumo" 
+						url="{URL_SERVIDOR}Consumo/Listar" 
+						useProxy="false" 
+						fault="handleFault(event)"
+						requestTimeout="30"
+						resultFormat="e4x"
+						result="receberListaConsumo(event)"
+						method="POST">
+		</s:HTTPService>
+		
+		<s:HTTPService 	id="hsGravarConsumo" 
+						url="{URL_SERVIDOR}Consumo/Gravar" 
+						useProxy="false" 
+						fault="handleFault(event)"
+						requestTimeout="30"
+						resultFormat="e4x"
+						result="receberResultado(event)"
+						method="POST">
+		</s:HTTPService>
+		
+		<s:HTTPService id="hsRecuperarConsumo" 
+					   url="{URL_SERVIDOR}Consumo/Recuperar" 
+					   useProxy="false" 
+					   fault="handleFault(event)"
+					   requestTimeout="30"
+					   resultFormat="e4x"
+					   result="receberConsumo(event)"
+					   method="POST"> 
+		</s:HTTPService>
+		
+				<s:HTTPService id="hsRemoverConsumo" 
+					   url="{URL_SERVIDOR}Consumo/Remover" 
+					   useProxy="false" 
+					   fault="handleFault(event)"
+					   requestTimeout="30"
+					   resultFormat="e4x"
+					   result="receberResultado(event)"
+					   method="POST"> 
+		</s:HTTPService>
+		
+		
+	</fx:Declarations>
+	
+		<mx:ViewStack id="vs" width="100%" x="0" height="100%" y="0" creationPolicy="all">
+		<s:NavigatorContent label="Pesquisa" width="100%" height="100%">
+			<s:Panel x="0" y="0" width="100%" height="100%" title="Pesquisa por Consumo">
+				<s:VGroup left="10" right="10" top="0" bottom="4">
+					<s:VGroup left="0" right="0" top="0">
+						<mx:Form fontFamily="Verdana" fontSize="10" horizontalScrollPolicy="off" verticalScrollPolicy="off" paddingBottom="0" paddingLeft="0" paddingTop="10">
+							 					
+						</mx:Form>
+					</s:VGroup>
+					<s:HGroup y="79" left="0" right="0" width="100%">
+						<s:HGroup>
+							<s:Button id="btnNovo" label="Novo"  click="exibirTelaCadastro();gNavegacao.visible = false;"/>
+							<s:Button id="btnPesquisar" label="Pesquisar" click="primeiraPagina()"/>
+							<s:Button id="btnLimpar" label="Limpar" click="limparCamposPesquisa()"/>
+							<s:Button id="btnRemoverVarios" label="Remover" click="removerVarios()" visible="false"/>
+						</s:HGroup>
+						<s:Label text="" textAlign="right" id="lblEncontrados" width="100%" height="100%" verticalAlign="bottom"/>
+					</s:HGroup>
+					<complementos:CheckBoxDataGrid id="dgConsumo" dataProvider="{xmlListaConsumo}" click="visibilidadeBtnRemoverVarios(event)" itemClick="recuperarConsumo(event)" top="295" bottom="10" left="10" right="10" height="100%" width="100%" allowMultipleSelection="true">
+						<complementos:columns>
+							<mx:DataGridColumn headerText="" itemRenderer="view.complementos.CheckBoxRenderer" headerRenderer="view.complementos.CheckBoxHeaderRenderer" sortable="false" width="20"/>
+							<mx:DataGridColumn headerText="Id" dataField="id" visible="false"/>
+<mx:DataGridColumn headerText="Local" dataField="local"/>
+<mx:DataGridColumn headerText="No" dataField="no"/>
+<mx:DataGridColumn headerText="Canal" dataField="canal"/>
+<mx:DataGridColumn headerText="ConsumoDiario" dataField="consumoDiario"/>
+<mx:DataGridColumn headerText="Data" dataField="data"/>
+
+						</complementos:columns>
+					</complementos:CheckBoxDataGrid>
+					<s:HGroup x="75" y="10" width="100%" horizontalAlign="center" id="gPaginacao" visible="false" height="0">
+						<s:Button id="btnPrimeira" label="Primeira"  enabled="false" click="primeiraPagina()"/>
+						<s:Button id="btnAnterior" label="Anterior" enabled="false" click="paginaAnterior()"/>
+						<s:Button id="btnProxima" label="Proxima" enabled="false" click="proximaPagina()"/>
+						<s:Button id="btnUltima" label="Ultima" enabled="false" click="ultimaPagina()"/>
+					</s:HGroup>
+				</s:VGroup>
+				<s:HGroup right="10" bottom="10" verticalAlign="middle" horizontalAlign="right" id="paginacao" visible="false">
+					<s:Label text="Pagina"/>
+					<mx:NumericStepper id="nsPagina" minimum="1" toolTip="Selecione a pagina e aperte ENTER"/>
+					<s:Label text="de 0" right="10" bottom="13" id="lblPagina" verticalAlign="middle" textAlign="right" />
+				</s:HGroup>
+			</s:Panel>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent label="Cadastro" width="100%" height="100%">
+			<s:Panel left="0" title="Dados de Consumo" right="0" bottom="0" top="0">
+				<mx:Form fontFamily="Verdana" fontSize="10" horizontalScrollPolicy="off" verticalScrollPolicy="off" paddingBottom="0" paddingLeft="0" paddingTop="10"  left="10" right="10" y="0">
+					<mx:FormItem label="Local:" >
+<mx:TextInput id="txtLocalCadastro" width="250" maxChars="45"/>
+</mx:FormItem>
+<mx:FormItem label="No:" >
+<mx:TextInput id="txtNoCadastro" width="250" maxChars="45"/>
+</mx:FormItem>
+<mx:FormItem label="Canal:" >
+<mx:TextInput id="txtCanalCadastro" width="250" maxChars="45"/>
+</mx:FormItem>
+<mx:FormItem label="ConsumoDiario:" >
+<mx:TextInput id="txtConsumoDiarioCadastro" width="250" maxChars="22"/>
+</mx:FormItem>
+<mx:FormItem label="Data:" >
+<mx:DateField id="dfDataCadastro" yearNavigationEnabled="true" firstDayOfWeek="sunday" dayNames="{DIAS_SEMANA}" monthNames="{MESES}" formatString="DD/MM/YYYY"/>
+</mx:FormItem>
+
+					<mx:FormItem>
+						<s:Label text="* campo(s) obrigatorio(s)" color="#DF6060"/>
+					</mx:FormItem>
+					<mx:FormItem label="id" visible="false">
+						<s:TextInput id="txtId" text="0" />
+					</mx:FormItem>
+				</mx:Form>
+				
+				<s:HGroup horizontalAlign="right" width="100%" id="gNavegacao" visible="false" right="10" top="-25">
+					<s:Button id="btnConsumoAnterior" label="Anterior" click="recuperarConsumoAnterior()" />
+					<s:Label text="0 de 0" height="100%" textAlign="center" verticalAlign="middle" id="lblRegistro"/>
+					<s:Button id="btnProximoConsumo" label="PrÃ³ximo" click="recuperarProximoConsumo()" />
+				</s:HGroup>
+				
+				<s:HGroup right="10" bottom="10" left="10" horizontalAlign="right">
+					<s:Button id="btnGravar" label="Gravar" click="gravarConsumo()" />
+					<s:Button id="btnRemover" label="Excluir" click="removerConsumo()" />
+					<s:Button id="btnCancelar" label="Cancelar" click="exibirTelaPesquisa()" />
+				</s:HGroup>
+			</s:Panel>
+		</s:NavigatorContent>
+	</mx:ViewStack>
+</mx:Module>	
